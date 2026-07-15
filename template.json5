@@ -7,16 +7,64 @@
       "name": "create-resource",
       "resources": {
         "audiences": {
-          "interest-elegant-clothing": {
-            "name": "Interested in Elegant Clothing",
-            "criteria": "user has viewed product with category \"Elegant\" in the last 5 minutes"
+          "location-south-america": {
+            "name": "Visitors from South America",
+            "criteria": "location's continent's name is \"South America\""
           },
-          "all-users": {
-            "name": "All Users",
-            "criteria": "true"
+          "location-north-america": {
+            "name": "Visitors from North America",
+            "criteria": "location's continent's name is \"North America\""
+          },
+          "location-europe": {
+            "name": "Visitors from Europe",
+            "criteria": "location's continent's name is \"Europe\""
           }
         },
         "components": {
+          "checkout-callout": {
+            "name": "Checkout callout",
+            "schema": {
+              "type": "structure",
+              "attributes": {
+                "icon": {
+                  "type": {
+                    "id": "@croct/file",
+                    "type": "reference",
+                    "properties": {
+                      "allowedTypes": [
+                        "image/png",
+                        "image/jpeg",
+                        "image/jp2",
+                        "image/webp",
+                        "image/gif",
+                        "image/svg+xml",
+                        "image/avif"
+                      ]
+                    }
+                  },
+                  "label": "icon",
+                  "optional": false,
+                  "position": 0
+                },
+                "text": {
+                  "type": {
+                    "type": "text"
+                  },
+                  "label": "text",
+                  "optional": false,
+                  "position": 2
+                },
+                "title": {
+                  "type": {
+                    "type": "text"
+                  },
+                  "label": "title",
+                  "optional": false,
+                  "position": 1
+                }
+              }
+            }
+          },
           "cta": {
             "name": "CTA",
             "schema": {
@@ -70,182 +118,41 @@
                 }
               }
             }
-          },
-          "hero-section": {
-            "name": "Hero section",
-            "schema": {
-              "type": "structure",
-              "attributes": {
-                "cta": {
-                  "type": {
-                    "type": "list",
-                    "items": {
-                      "id": "cta",
-                      "type": "reference"
-                    },
-                    "maximumLength": 1,
-                    "minimumLength": 1
-                  },
-                  "label": "cta",
-                  "optional": false,
-                  "position": 2
-                },
-                "image": {
-                  "type": {
-                    "id": "@croct/file",
-                    "type": "reference",
-                    "properties": {
-                      "allowedTypes": [
-                        "image/png",
-                        "image/jpeg",
-                        "image/jp2",
-                        "image/webp",
-                        "image/gif",
-                        "image/svg+xml",
-                        "image/avif"
-                      ]
+          }
+        },
+        "slots": {
+          "checkout-callout": {
+            "name": "Checkout callout",
+            "component": "checkout-callout",
+            "content": {
+              "en-us": {
+                "type": "structure",
+                "attributes": {
+                  "icon": {
+                    "type": "text",
+                    "value": {
+                      "type": "static",
+                      "value": "https://a.storyblok.com/f/289964601464397/150x150/bcac64f80b/gift-icon-blue.svg"
                     }
                   },
-                  "label": "image",
-                  "optional": false,
-                  "position": 3
-                },
-                "tagline": {
-                  "type": {
-                    "type": "text"
+                  "text": {
+                    "type": "text",
+                    "value": {
+                      "type": "static",
+                      "value": "Add a personal touch to your order."
+                    }
                   },
-                  "label": "tagline",
-                  "optional": true,
-                  "position": 1
-                },
-                "headline": {
-                  "type": {
-                    "type": "text"
-                  },
-                  "label": "headline",
-                  "optional": false,
-                  "position": 0
+                  "title": {
+                    "type": "text",
+                    "value": {
+                      "type": "static",
+                      "value": "Free gift wrapping on orders over €100"
+                    }
+                  }
                 }
               }
             }
           },
-          "coupon-list": {
-            "name": "Coupon list",
-            "description": "A list of coupons.",
-            "schema": {
-              "type": "structure",
-              "title": "Coupon list",
-              "attributes": {
-                "coupons": {
-                  "type": {
-                    "type": "list",
-                    "items": {
-                      "type": "structure",
-                      "attributes": {
-                        "code": {
-                          "type": {
-                            "type": "text",
-                            "pattern": "[a-z0-9-]+",
-                            "maximumLength": 30,
-                            "minimumLength": 3
-                          },
-                          "label": "Code",
-                          "private": false,
-                          "optional": false,
-                          "position": 0,
-                          "description": "The coupon code."
-                        },
-                        "rule": {
-                          "type": {
-                            "type": "text",
-                            "minimumLength": 1
-                          },
-                          "label": "Rule",
-                          "private": false,
-                          "optional": false,
-                          "position": 2,
-                          "description": "The eligibility condition for the coupon."
-                        },
-                        "title": {
-                          "type": {
-                            "type": "text",
-                            "minimumLength": 1
-                          },
-                          "label": "Title",
-                          "private": false,
-                          "optional": false,
-                          "position": 1,
-                          "description": "Display name shown after the coupon is applied."
-                        },
-                        "discount": {
-                          "type": {
-                            "type": "number",
-                            "integer": true,
-                            "maximum": 100,
-                            "minimum": 0
-                          },
-                          "label": "Discount",
-                          "private": false,
-                          "optional": true,
-                          "position": 3,
-                          "description": "Percentage discount from 0% to 100%."
-                        },
-                        "eligible": {
-                          "type": {
-                            "type": "boolean",
-                            "label": {
-                              "true": "Yes",
-                              "false": "No"
-                            },
-                            "default": false
-                          },
-                          "label": "Eligible",
-                          "private": false,
-                          "optional": false,
-                          "position": 6,
-                          "description": "Whether the current user is eligible for this coupon."
-                        },
-                        "maxDiscount": {
-                          "type": {
-                            "type": "number",
-                            "minimum": 0
-                          },
-                          "label": "Max discount",
-                          "private": false,
-                          "optional": true,
-                          "position": 4,
-                          "description": "Maximum discount as an absolute monetary value. Omit for no cap"
-                        },
-                        "freeShipping": {
-                          "type": {
-                            "type": "boolean",
-                            "label": {
-                              "true": "Yes",
-                              "false": "No"
-                            },
-                            "default": false
-                          },
-                          "label": "Free shipping",
-                          "private": false,
-                          "optional": false,
-                          "position": 5,
-                          "description": "Whether the coupon waives the shipping fee."
-                        }
-                      }
-                    },
-                    "itemLabel": "Coupon"
-                  },
-                  "label": "Coupons",
-                  "private": false,
-                  "optional": false,
-                  "position": 0
-                }
-              },
-              "description": "A list of coupons."
-            }
-          }
-        },
-        "slots": {
           "site-wide-top-bar": {
             "name": "Site-wide top bar",
             "component": "announcement-bar",
@@ -287,572 +194,266 @@
                 }
               }
             }
-          },
-          "home-hero": {
-            "name": "Home hero",
-            "component": "hero-section",
-            "content": {
-              "en-us": {
-                "type": "structure",
-                "attributes": {
-                  "cta": {
-                    "type": "list",
-                    "items": [
-                      {
-                        "type": "structure",
-                        "attributes": {
-                          "link": {
-                            "type": "text",
-                            "value": {
-                              "type": "static",
-                              "value": "catalog/"
-                            }
-                          },
-                          "label": {
-                            "type": "text",
-                            "value": {
-                              "type": "static",
-                              "value": "Shop now"
-                            }
-                          }
-                        }
-                      }
-                    ]
-                  },
-                  "image": {
-                    "type": "text",
-                    "value": {
-                      "type": "static",
-                      "value": "https://a.storyblok.com/f/289964601464397/4240x2827/788dbcaf4d/fallback.png"
-                    }
-                  },
-                  "tagline": {
-                    "type": "text",
-                    "value": {
-                      "type": "static",
-                      "value": "Sporty or elegant, we got you covered."
-                    }
-                  },
-                  "headline": {
-                    "type": "text",
-                    "value": {
-                      "type": "static",
-                      "value": "Effortless style for everyday moments"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "coupons": {
-            "name": "Coupons",
-            "component": "coupon-list",
-            "content": {
-              "en-us": {
-                "type": "structure",
-                "attributes": {
-                  "coupons": {
-                    "type": "list",
-                    "items": [
-                      {
-                        "type": "structure",
-                        "label": "First purchase",
-                        "attributes": {
-                          "code": {
-                            "type": "text",
-                            "value": {
-                              "type": "static",
-                              "value": "welcome"
-                            }
-                          },
-                          "rule": {
-                            "type": "text",
-                            "value": {
-                              "type": "static",
-                              "value": "Discount available in your first visit only."
-                            }
-                          },
-                          "title": {
-                            "type": "text",
-                            "value": {
-                              "type": "static",
-                              "value": "10% OFF on your first purchase."
-                            }
-                          },
-                          "discount": {
-                            "type": "number",
-                            "value": {
-                              "type": "static",
-                              "value": 10
-                            }
-                          },
-                          "eligible": {
-                            "type": "boolean",
-                            "value": {
-                              "type": "dynamic",
-                              "default": true,
-                              "nullable": false,
-                              "expression": "user's stats' order is 0"
-                            }
-                          },
-                          "maxDiscount": {
-                            "type": "number",
-                            "value": {
-                              "type": "static",
-                              "value": 100
-                            }
-                          },
-                          "freeShipping": {
-                            "type": "boolean",
-                            "value": {
-                              "type": "static",
-                              "value": false
-                            }
-                          }
-                        }
-                      },
-                      {
-                        "type": "structure",
-                        "attributes": {
-                          "code": {
-                            "type": "text",
-                            "value": {
-                              "type": "static",
-                              "value": "MP10"
-                            }
-                          },
-                          "rule": {
-                            "type": "text",
-                            "value": {
-                              "type": "static",
-                              "value": "Cupom do MP"
-                            }
-                          },
-                          "title": {
-                            "type": "text",
-                            "value": {
-                              "type": "static",
-                              "value": "Cupom do MP"
-                            }
-                          },
-                          "discount": {
-                            "type": "number",
-                            "value": {
-                              "type": "static",
-                              "value": 10
-                            }
-                          },
-                          "eligible": {
-                            "type": "boolean",
-                            "value": {
-                              "type": "static",
-                              "value": true
-                            }
-                          },
-                          "maxDiscount": {
-                            "type": "number",
-                            "value": {
-                              "type": "static",
-                              "value": 50
-                            }
-                          },
-                          "freeShipping": {
-                            "type": "boolean",
-                            "value": {
-                              "type": "static",
-                              "value": false
-                            }
-                          }
-                        }
-                      }
-                    ]
-                  }
-                }
-              }
-            }
           }
         },
         "experiences": [
           {
-            "name": "Elegant Clothing",
+            "name": "Free shipping",
             "draft": false,
             "audiences": [
-              "interest-elegant-clothing"
+              "location-europe",
+              "location-north-america",
+              "location-south-america"
             ],
             "slots": [
-              "coupons",
-              "site-wide-top-bar",
-              "home-hero"
-            ],
-            "content": {
-              "default": {
-                "coupons": {
-                  "en-us": {
-                    "type": "structure",
-                    "attributes": {
-                      "coupons": {
-                        "type": "list",
-                        "items": [
-                          {
-                            "type": "structure",
-                            "label": "First purchase",
-                            "attributes": {
-                              "code": {
-                                "type": "text",
-                                "value": {
-                                  "type": "static",
-                                  "value": "welcome"
-                                }
-                              },
-                              "rule": {
-                                "type": "text",
-                                "value": {
-                                  "type": "static",
-                                  "value": "Discount available in your first visit only."
-                                }
-                              },
-                              "title": {
-                                "type": "text",
-                                "value": {
-                                  "type": "static",
-                                  "value": "10% OFF on your first purchase."
-                                }
-                              },
-                              "discount": {
-                                "type": "number",
-                                "value": {
-                                  "type": "static",
-                                  "value": 10
-                                }
-                              },
-                              "eligible": {
-                                "type": "boolean",
-                                "value": {
-                                  "type": "dynamic",
-                                  "default": true,
-                                  "nullable": false,
-                                  "expression": "user's stats' order is 0"
-                                }
-                              },
-                              "maxDiscount": {
-                                "type": "number",
-                                "value": {
-                                  "type": "static",
-                                  "value": 100
-                                }
-                              },
-                              "freeShipping": {
-                                "type": "boolean",
-                                "value": {
-                                  "type": "static",
-                                  "value": false
-                                }
-                              }
-                            }
-                          },
-                          {
-                            "type": "structure",
-                            "label": "Elegant clothing",
-                            "attributes": {
-                              "code": {
-                                "type": "text",
-                                "value": {
-                                  "type": "static",
-                                  "value": "ELEGANT10"
-                                }
-                              },
-                              "rule": {
-                                "type": "text",
-                                "value": {
-                                  "type": "static",
-                                  "value": "Discount available for interested in elegant clothing only."
-                                }
-                              },
-                              "title": {
-                                "type": "text",
-                                "value": {
-                                  "type": "static",
-                                  "value": "10% OFF on elegant clothing."
-                                }
-                              },
-                              "discount": {
-                                "type": "number",
-                                "value": {
-                                  "type": "static",
-                                  "value": 10
-                                }
-                              },
-                              "eligible": {
-                                "type": "boolean",
-                                "value": {
-                                  "type": "static",
-                                  "value": true
-                                }
-                              },
-                              "maxDiscount": {
-                                "type": "number",
-                                "value": {
-                                  "type": "static",
-                                  "value": 100
-                                }
-                              },
-                              "freeShipping": {
-                                "type": "boolean",
-                                "value": {
-                                  "type": "static",
-                                  "value": false
-                                }
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  }
-                },
-                "site-wide-top-bar": {
-                  "en-us": {
-                    "type": "structure",
-                    "attributes": {
-                      "cta": {
-                        "type": "list",
-                        "items": [
-                          {
-                            "type": "structure",
-                            "attributes": {
-                              "link": {
-                                "type": "text",
-                                "value": {
-                                  "type": "static",
-                                  "value": "https://storyblok-next-personalization.vercel.app/catalog/elegant"
-                                }
-                              },
-                              "label": {
-                                "type": "text",
-                                "value": {
-                                  "type": "static",
-                                  "value": "Shop now"
-                                }
-                              }
-                            }
-                          }
-                        ]
-                      },
-                      "text": {
-                        "type": "text",
-                        "value": {
-                          "type": "static",
-                          "value": "10% OFF on elegant clothing! Use code `ELEGANT10` at checkout."
-                        }
-                      }
-                    }
-                  }
-                },
-                "home-hero": {
-                  "en-us": {
-                    "type": "structure",
-                    "attributes": {
-                      "cta": {
-                        "type": "list",
-                        "items": [
-                          {
-                            "type": "structure",
-                            "label": "Item",
-                            "attributes": {
-                              "link": {
-                                "type": "text",
-                                "value": {
-                                  "type": "static",
-                                  "value": "https://storyblok-next-personalization.vercel.app/catalog/elegant"
-                                }
-                              },
-                              "label": {
-                                "type": "text",
-                                "value": {
-                                  "type": "static",
-                                  "value": "Shop now"
-                                }
-                              }
-                            }
-                          }
-                        ]
-                      },
-                      "image": {
-                        "type": "text",
-                        "value": {
-                          "type": "static",
-                          "value": "https://cdn.croct.io/workspace/customer-assets/f76ab49d-595f-4273-a732-4afe68636c35/dbd43bd4-8fb7-4534-93fa-aa23e1323da0"
-                        }
-                      },
-                      "tagline": {
-                        "type": "text",
-                        "value": {
-                          "type": "static",
-                          "value": "When sharp tailoring meets premium comfort, from boardroom meetings to dinner dates."
-                        }
-                      },
-                      "headline": {
-                        "type": "text",
-                        "value": {
-                          "type": "static",
-                          "value": "Polished presence for special moments"
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "segmented": []
-            }
-          },
-          {
-            "name": "Simple AB test",
-            "draft": false,
-            "audiences": [
-              "all-users"
-            ],
-            "slots": [
-              "home-hero"
+              "checkout-callout",
+              "site-wide-top-bar"
             ],
             "content": {
               "default": {},
-              "segmented": []
-            },
-            "experiment": {
-              "name": "Home hero image",
-              "goalId": "hero-cta-click",
-              "crossDevice": false,
-              "traffic": 1,
-              "variants": [
+              "segmented": [
                 {
-                  "name": "Variant A",
+                  "id": "823ce85e-f55d-4322-85bd-62e5639adb65",
+                  "audiences": [
+                    "location-europe"
+                  ],
                   "content": {
-                    "default": {
-                      "home-hero": {
-                        "en-us": {
-                          "type": "structure",
-                          "attributes": {
-                            "cta": {
-                              "type": "list",
-                              "items": [
-                                {
-                                  "type": "structure",
-                                  "label": "Item",
-                                  "attributes": {
-                                    "link": {
-                                      "type": "text",
-                                      "value": {
-                                        "type": "static",
-                                        "value": "https://storyblok-next-personalization.vercel.app/catalog"
-                                      }
-                                    },
-                                    "label": {
-                                      "type": "text",
-                                      "value": {
-                                        "type": "static",
-                                        "value": "Shop now"
-                                      }
-                                    }
-                                  }
-                                }
-                              ]
-                            },
-                            "image": {
-                              "type": "text",
-                              "value": {
-                                "type": "static",
-                                "value": "https://a.storyblok.com/f/289964601464397/5836x3891/6090602837/collection.webp"
-                              }
-                            },
-                            "tagline": {
-                              "type": "text",
-                              "value": {
-                                "type": "dynamic",
-                                "default": "Sporty or elegant, we got you covered.",
-                                "nullable": true,
-                                "expression": "\"Sporty or elegant, we got you covered. Currently shipping to \"\n& (location's country's name or else \"the whole world\")\n& \".\""
-                              }
-                            },
-                            "headline": {
-                              "type": "text",
-                              "value": {
-                                "type": "static",
-                                "value": "Your favorite shop for every occasion"
-                              }
+                    "checkout-callout": {
+                      "en-us": {
+                        "type": "structure",
+                        "attributes": {
+                          "icon": {
+                            "type": "text",
+                            "value": {
+                              "type": "static",
+                              "value": "https://a.storyblok.com/f/289964601464397/150x150/64398618fd/package-icon.svg"
+                            }
+                          },
+                          "text": {
+                            "type": "text",
+                            "value": {
+                              "type": "dynamic",
+                              "default": "Please add more items to your cart.",
+                              "nullable": false,
+                              "expression": "\"Your order will be delivered for free.\"\nif cart's total is greater than 300\nelse \"Please add more items to your cart.\""
+                            }
+                          },
+                          "title": {
+                            "type": "text",
+                            "value": {
+                              "type": "dynamic",
+                              "default": "Free shipping for orders over €300",
+                              "nullable": false,
+                              "expression": "\"Free shipping to \" & (location's country's name or else \"Europe\")\nif cart's total is greater than 300\nelse \"Free shipping to \" & (location's country's name or else \"Europe\") & \" for orders over €300\""
                             }
                           }
                         }
                       }
                     },
-                    "segmented": []
-                  },
-                  "baseline": true,
-                  "allocation": 500
+                    "site-wide-top-bar": {
+                      "en-us": {
+                        "type": "structure",
+                        "attributes": {
+                          "cta": {
+                            "type": "list",
+                            "items": [
+                              {
+                                "type": "structure",
+                                "label": "Item",
+                                "attributes": {
+                                  "link": {
+                                    "type": "text",
+                                    "value": {
+                                      "type": "static",
+                                      "value": "https://storyblok-next-personalization.vercel.app/catalog"
+                                    }
+                                  },
+                                  "label": {
+                                    "type": "text",
+                                    "value": {
+                                      "type": "static",
+                                      "value": "Shop now"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "text": {
+                            "type": "text",
+                            "value": {
+                              "type": "dynamic",
+                              "default": "Free shipping to Europe for orders over €300.",
+                              "nullable": false,
+                              "expression": "\"Free shipping to \"\n& (location's country's name or else \"Europe\")\n& \" for orders over €300.\""
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 },
                 {
-                  "name": "Variant B",
+                  "id": "a6d4ff9f-2bfc-42ef-9510-c64beb81702e",
+                  "audiences": [
+                    "location-north-america"
+                  ],
                   "content": {
-                    "default": {
-                      "home-hero": {
-                        "en-us": {
-                          "type": "structure",
-                          "attributes": {
-                            "cta": {
-                              "type": "list",
-                              "items": [
-                                {
-                                  "type": "structure",
-                                  "label": "Item",
-                                  "attributes": {
-                                    "link": {
-                                      "type": "text",
-                                      "value": {
-                                        "type": "static",
-                                        "value": "https://storyblok-next-personalization.vercel.app/catalog"
-                                      }
-                                    },
-                                    "label": {
-                                      "type": "text",
-                                      "value": {
-                                        "type": "static",
-                                        "value": "Shop now"
-                                      }
-                                    }
-                                  }
-                                }
-                              ]
-                            },
-                            "image": {
-                              "type": "text",
-                              "value": {
-                                "type": "static",
-                                "value": "https://cdn.croct.io/workspace/customer-assets/f76ab49d-595f-4273-a732-4afe68636c35/4ce2414f-2919-4eec-a4a2-d20cd53cc374"
-                              }
-                            },
-                            "tagline": {
-                              "type": "text",
-                              "value": {
-                                "type": "dynamic",
-                                "default": "Sporty or elegant, we got you covered.",
-                                "nullable": true,
-                                "expression": "\"Sporty or elegant, we got you covered. Currently shipping to \"\n& (location's country's name or else \"the whole world\")\n& \".\""
-                              }
-                            },
-                            "headline": {
-                              "type": "text",
-                              "value": {
-                                "type": "static",
-                                "value": "Your favorite shop for every occasion"
-                              }
+                    "checkout-callout": {
+                      "en-us": {
+                        "type": "structure",
+                        "attributes": {
+                          "icon": {
+                            "type": "text",
+                            "value": {
+                              "type": "static",
+                              "value": "https://a.storyblok.com/f/289964601464397/150x150/64398618fd/package-icon.svg"
+                            }
+                          },
+                          "text": {
+                            "type": "text",
+                            "value": {
+                              "type": "dynamic",
+                              "default": "Please add more items to your cart.",
+                              "nullable": false,
+                              "expression": "\"Your order will be delivered for free.\"\nif cart's total is greater than 200\nelse \"Please add more items to your cart.\""
+                            }
+                          },
+                          "title": {
+                            "type": "text",
+                            "value": {
+                              "type": "dynamic",
+                              "default": "Free shipping for orders over €200",
+                              "nullable": false,
+                              "expression": "\"Free shipping to \" & (location's country's name or else \"North America\")\nif cart's total is greater than 200\nelse \"Free shipping to \" & (location's country's name or else \"North America\") & \" for orders over €200\""
                             }
                           }
                         }
                       }
                     },
-                    "segmented": []
-                  },
-                  "baseline": false,
-                  "allocation": 500
+                    "site-wide-top-bar": {
+                      "en-us": {
+                        "type": "structure",
+                        "attributes": {
+                          "cta": {
+                            "type": "list",
+                            "items": [
+                              {
+                                "type": "structure",
+                                "label": "Item",
+                                "attributes": {
+                                  "link": {
+                                    "type": "text",
+                                    "value": {
+                                      "type": "static",
+                                      "value": "https://storyblok-next-personalization.vercel.app/catalog"
+                                    }
+                                  },
+                                  "label": {
+                                    "type": "text",
+                                    "value": {
+                                      "type": "static",
+                                      "value": "Shop now"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "text": {
+                            "type": "text",
+                            "value": {
+                              "type": "dynamic",
+                              "default": "Free shipping to North America for orders over €200.",
+                              "nullable": false,
+                              "expression": "\"Free shipping to \"\n& (location's country's name or else \"North America\")\n& \" for orders over €200.\""
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "id": "0a4d01da-506d-4ab7-bf8a-a83734553a1e",
+                  "audiences": [
+                    "location-south-america"
+                  ],
+                  "content": {
+                    "checkout-callout": {
+                      "en-us": {
+                        "type": "structure",
+                        "attributes": {
+                          "icon": {
+                            "type": "text",
+                            "value": {
+                              "type": "static",
+                              "value": "https://a.storyblok.com/f/289964601464397/150x150/64398618fd/package-icon.svg"
+                            }
+                          },
+                          "text": {
+                            "type": "text",
+                            "value": {
+                              "type": "dynamic",
+                              "default": "Please add more items to your cart.",
+                              "nullable": false,
+                              "expression": "\"Your order will be delivered for free.\"\nif cart's total is greater than 400\nelse \"Please add more items to your cart.\""
+                            }
+                          },
+                          "title": {
+                            "type": "text",
+                            "value": {
+                              "type": "dynamic",
+                              "default": "Free shipping for orders over €400",
+                              "nullable": false,
+                              "expression": "\"Free shipping to \" & (location's country's name or else \"South America\")\nif cart's total is greater than 400\nelse \"Free shipping to \" & (location's country's name or else \"South America\") & \" for orders over €400\""
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "site-wide-top-bar": {
+                      "en-us": {
+                        "type": "structure",
+                        "attributes": {
+                          "cta": {
+                            "type": "list",
+                            "items": [
+                              {
+                                "type": "structure",
+                                "label": "Item",
+                                "attributes": {
+                                  "link": {
+                                    "type": "text",
+                                    "value": {
+                                      "type": "static",
+                                      "value": "https://storyblok-next-personalization.vercel.app/catalog"
+                                    }
+                                  },
+                                  "label": {
+                                    "type": "text",
+                                    "value": {
+                                      "type": "static",
+                                      "value": "Shop now"
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "text": {
+                            "type": "text",
+                            "value": {
+                              "type": "dynamic",
+                              "default": "Free shipping to South America for orders over €400.",
+                              "nullable": false,
+                              "expression": "\"Free shipping to \"\n& (location's country's name or else \"South America\")\n& \" for orders over €400.\""
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               ]
             }
