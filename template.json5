@@ -7,9 +7,13 @@
       "name": "create-resource",
       "resources": {
         "audiences": {
-          "interested-in-sportswear": {
-            "name": "Interested in Sportswear",
-            "criteria": "user has viewed product with category \"Sportswear\" in the last 5 minutes"
+          "interest-elegant-clothing": {
+            "name": "Interested in Elegant Clothing",
+            "criteria": "user has viewed product with category \"Elegant\" in the last 5 minutes"
+          },
+          "all-users": {
+            "name": "All Users",
+            "criteria": "true"
           }
         },
         "components": {
@@ -470,10 +474,10 @@
         },
         "experiences": [
           {
-            "name": "Sportswear",
+            "name": "Elegant Clothing",
             "draft": false,
             "audiences": [
-              "interested-in-sportswear"
+              "interest-elegant-clothing"
             ],
             "slots": [
               "coupons",
@@ -548,27 +552,27 @@
                           },
                           {
                             "type": "structure",
-                            "label": "Sportswear",
+                            "label": "Elegant clothing",
                             "attributes": {
                               "code": {
                                 "type": "text",
                                 "value": {
                                   "type": "static",
-                                  "value": "SPORTSWEAR10"
+                                  "value": "ELEGANT10"
                                 }
                               },
                               "rule": {
                                 "type": "text",
                                 "value": {
                                   "type": "static",
-                                  "value": "Discount available for interested in sportswear only."
+                                  "value": "Discount available for interested in elegant clothing only."
                                 }
                               },
                               "title": {
                                 "type": "text",
                                 "value": {
                                   "type": "static",
-                                  "value": "10% OFF on sportswear."
+                                  "value": "10% OFF on elegant clothing."
                                 }
                               },
                               "discount": {
@@ -615,13 +619,12 @@
                         "items": [
                           {
                             "type": "structure",
-                            "label": "Item",
                             "attributes": {
                               "link": {
                                 "type": "text",
                                 "value": {
                                   "type": "static",
-                                  "value": "https://storyblok-next-personalization.vercel.app/catalog/sportswear"
+                                  "value": "https://storyblok-next-personalization.vercel.app/catalog/elegant"
                                 }
                               },
                               "label": {
@@ -639,7 +642,7 @@
                         "type": "text",
                         "value": {
                           "type": "static",
-                          "value": "10% OFF on sportswear! Use code `SPORTSWEAR10` at checkout."
+                          "value": "10% OFF on elegant clothing! Use code `ELEGANT10` at checkout."
                         }
                       }
                     }
@@ -660,7 +663,7 @@
                                 "type": "text",
                                 "value": {
                                   "type": "static",
-                                  "value": "https://storyblok-next-personalization.vercel.app/catalog/sportswear"
+                                  "value": "https://storyblok-next-personalization.vercel.app/catalog/elegant"
                                 }
                               },
                               "label": {
@@ -678,21 +681,21 @@
                         "type": "text",
                         "value": {
                           "type": "static",
-                          "value": "https://cdn.croct.io/workspace/customer-assets/f76ab49d-595f-4273-a732-4afe68636c35/d595fb14-928b-4b8d-90ac-445514d69b79"
+                          "value": "https://cdn.croct.io/workspace/customer-assets/f76ab49d-595f-4273-a732-4afe68636c35/dbd43bd4-8fb7-4534-93fa-aa23e1323da0"
                         }
                       },
                       "tagline": {
                         "type": "text",
                         "value": {
                           "type": "static",
-                          "value": "Moisture-wicking fabric keeps you cool during high-intensity training. Built for performance, designed for style."
+                          "value": "When sharp tailoring meets premium comfort, from boardroom meetings to dinner dates."
                         }
                       },
                       "headline": {
                         "type": "text",
                         "value": {
                           "type": "static",
-                          "value": "Designed to move with you"
+                          "value": "Polished presence for special moments"
                         }
                       }
                     }
@@ -700,6 +703,158 @@
                 }
               },
               "segmented": []
+            }
+          },
+          {
+            "name": "Simple AB test",
+            "draft": false,
+            "audiences": [
+              "all-users"
+            ],
+            "slots": [
+              "home-hero"
+            ],
+            "content": {
+              "default": {},
+              "segmented": []
+            },
+            "experiment": {
+              "name": "Home hero image",
+              "goalId": "hero-cta-click",
+              "crossDevice": false,
+              "traffic": 1,
+              "variants": [
+                {
+                  "name": "Variant A",
+                  "content": {
+                    "default": {
+                      "home-hero": {
+                        "en-us": {
+                          "type": "structure",
+                          "attributes": {
+                            "cta": {
+                              "type": "list",
+                              "items": [
+                                {
+                                  "type": "structure",
+                                  "label": "Item",
+                                  "attributes": {
+                                    "link": {
+                                      "type": "text",
+                                      "value": {
+                                        "type": "static",
+                                        "value": "https://storyblok-next-personalization.vercel.app/catalog"
+                                      }
+                                    },
+                                    "label": {
+                                      "type": "text",
+                                      "value": {
+                                        "type": "static",
+                                        "value": "Shop now"
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            "image": {
+                              "type": "text",
+                              "value": {
+                                "type": "static",
+                                "value": "https://a.storyblok.com/f/289964601464397/5836x3891/6090602837/collection.webp"
+                              }
+                            },
+                            "tagline": {
+                              "type": "text",
+                              "value": {
+                                "type": "dynamic",
+                                "default": "Sporty or elegant, we got you covered.",
+                                "nullable": true,
+                                "expression": "\"Sporty or elegant, we got you covered. Currently shipping to \"\n& (location's country's name or else \"the whole world\")\n& \".\""
+                              }
+                            },
+                            "headline": {
+                              "type": "text",
+                              "value": {
+                                "type": "static",
+                                "value": "Your favorite shop for every occasion"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "segmented": []
+                  },
+                  "baseline": true,
+                  "allocation": 500
+                },
+                {
+                  "name": "Variant B",
+                  "content": {
+                    "default": {
+                      "home-hero": {
+                        "en-us": {
+                          "type": "structure",
+                          "attributes": {
+                            "cta": {
+                              "type": "list",
+                              "items": [
+                                {
+                                  "type": "structure",
+                                  "label": "Item",
+                                  "attributes": {
+                                    "link": {
+                                      "type": "text",
+                                      "value": {
+                                        "type": "static",
+                                        "value": "https://storyblok-next-personalization.vercel.app/catalog"
+                                      }
+                                    },
+                                    "label": {
+                                      "type": "text",
+                                      "value": {
+                                        "type": "static",
+                                        "value": "Shop now"
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            "image": {
+                              "type": "text",
+                              "value": {
+                                "type": "static",
+                                "value": "https://cdn.croct.io/workspace/customer-assets/f76ab49d-595f-4273-a732-4afe68636c35/4ce2414f-2919-4eec-a4a2-d20cd53cc374"
+                              }
+                            },
+                            "tagline": {
+                              "type": "text",
+                              "value": {
+                                "type": "dynamic",
+                                "default": "Sporty or elegant, we got you covered.",
+                                "nullable": true,
+                                "expression": "\"Sporty or elegant, we got you covered. Currently shipping to \"\n& (location's country's name or else \"the whole world\")\n& \".\""
+                              }
+                            },
+                            "headline": {
+                              "type": "text",
+                              "value": {
+                                "type": "static",
+                                "value": "Your favorite shop for every occasion"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "segmented": []
+                  },
+                  "baseline": false,
+                  "allocation": 500
+                }
+              ]
             }
           }
         ]
