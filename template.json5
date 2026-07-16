@@ -213,7 +213,6 @@
               "default": {},
               "segmented": [
                 {
-                  "id": "823ce85e-f55d-4322-85bd-62e5639adb65",
                   "audiences": [
                     "location-europe"
                   ],
@@ -294,7 +293,6 @@
                   }
                 },
                 {
-                  "id": "a6d4ff9f-2bfc-42ef-9510-c64beb81702e",
                   "audiences": [
                     "location-north-america"
                   ],
@@ -375,7 +373,6 @@
                   }
                 },
                 {
-                  "id": "0a4d01da-506d-4ab7-bf8a-a83734553a1e",
                   "audiences": [
                     "location-south-america"
                   ],
